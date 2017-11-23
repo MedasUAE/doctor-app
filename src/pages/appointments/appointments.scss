@@ -1,0 +1,77 @@
+page-contact {
+    .circle:before {
+        content: ' \25CF';
+    }
+
+    .active {
+        border:solid 0.5px color($colors, primary);
+        border-bottom: none;
+        margin-left:2px;
+        margin-right:2px;
+        background-color: color($colors, primary);
+        color: white;
+    }
+
+    .date-col {
+        color: color($colors, primary);
+    }
+
+    .date-row {
+        border-bottom:solid 5px color($colors, primary);
+    }
+
+    .new-patient {
+        background-color: #ECDF86;
+        font-size: smaller;
+    }
+
+    .revisit {
+        background-color: #B3EDFE;
+        font-size: smaller;        
+    }
+
+    .CONFIRMED {
+        background-color: color($colors,primary);
+    }
+
+    .NOTCONFIRMED {
+        background-color: #37FED0;
+    }
+
+    .ARRIVED {
+        background-color: #FFFF11;
+    }
+
+    .CLOSED {
+        background-color: color($colors,secondary);
+    }
+
+    .REGISTERED {
+        background-color: #ECDF86;
+    }
+
+    .BLOCKED {
+        background-color: color($colors,light);
+        font-style: italic;
+        font-size: smaller;
+    }
+
+    .item-block {
+        min-height: 0px;
+    }
+
+    .label-md {
+        margin: 0px;
+    }
+
+    .item-md.item-block .item-inner{
+         padding-right: 0px;
+    }
+
+    .none {
+        font-size: smaller;
+        background-color: white;
+    }
+}
+
+
