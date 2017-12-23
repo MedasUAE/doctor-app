@@ -22,38 +22,43 @@ page-contact {
 
     .new-patient {
         background-color: #ECDF86;
-        font-size: smaller;
+        font-size: small;
     }
 
     .revisit {
         background-color: #B3EDFE;
-        font-size: smaller;        
+        font-size: small;        
     }
 
     .CONFIRMED {
         background-color: color($colors,primary);
+        font-size: small;                
     }
 
     .NOTCONFIRMED {
         background-color: #37FED0;
+        font-size: small;                
     }
 
     .ARRIVED {
         background-color: #FFFF11;
+        font-size: small;                
     }
 
     .CLOSED {
         background-color: color($colors,secondary);
+        font-size: small;                
     }
 
     .REGISTERED {
+        font-size: small;        
         background-color: #ECDF86;
     }
 
     .BLOCKED {
         background-color: color($colors,light);
         font-style: italic;
-        font-size: smaller;
+        font-size: small;
     }
 
     .item-block {
@@ -72,6 +77,12 @@ page-contact {
         font-size: smaller;
         background-color: white;
     }
+
+    // ion-note {
+    //     font-size: 12px;
+    //     align-self: flex-top;
+    //     // margin-top: 14px;
+    // }
 }
 
 

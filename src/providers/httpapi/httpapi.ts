@@ -14,20 +14,18 @@ import { AlertService } from '../alert-servce';
 @Injectable()
 export class HttpService {
   public headers: any;
-  private baseURL: String;
+  // public baseURL: String;
   private errorMsg: string = "Network Error: Please check your network connection";
 
   constructor(public http: Http, private ev: Events, public loader:LoadingController, public network: Network, public alert: AlertService) {
     this.headers = new Headers();
-    // this.baseURL = 'http://localhost:3000/';
-    this.baseURL = 'https://api-doc.herokuapp.com/';
     this.headers.append('Content-Type','application/json');
     if(localStorage.getItem('auth'))
       this.headers.append('Authorization', 'bearer ' + JSON.parse(localStorage.getItem('auth')).token);
   }
 
   public post(url, postData, showLoader = true){
-    let completeURL = this.baseURL + url;
+    let completeURL = localStorage.getItem('baseURL') + url;
     
     if(!showLoader) return this.postCallWithoutLoader(completeURL,postData);
     else return this.postCallWithLoader(completeURL,postData);
@@ -96,7 +94,7 @@ export class HttpService {
   }
   
   public get(url){
-    let completeURL = this.baseURL + url;
+    let completeURL = localStorage.getItem('baseURL') + url;
     let load = this.loader.create({
         content : 'Please Wait ..'      
     });
@@ -120,6 +118,31 @@ export class HttpService {
                   reject(data.DisplayMessage);                
                   break;
               }
+          },
+          (err) => {
+            load.dismiss();
+            if(this.network.type == "none")
+              this.alert.showAlert("Network Error","Please check your network connection");
+            else
+              reject(err)
+        })
+      })
+    })    
+  }
+
+  public getBaseURL(url){
+    let load = this.loader.create({
+        content : 'Please Wait ..'      
+    });
+    return new Promise((resolve, reject) => {
+      if (this.network.type == "none")  reject("You are offline");
+      
+      load.present().then(() =>{
+      this.http.get(url).subscribe(
+          (res) => {
+            let data = res.json()  
+            resolve(data.url)
+            load.dismiss();
           },
           (err) => {
             load.dismiss();

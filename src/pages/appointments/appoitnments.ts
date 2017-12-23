@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, Slides } from 'ionic-angular';
-import { HttpService } from '../../providers/httpapi/httpapi'
+import { NavController, Slides, App } from 'ionic-angular';
+import { HttpService } from '../../providers/httpapi/httpapi';
+import { LoginPage } from '../../pages/login/login';
 // import {Data} from './data';
 import * as moment from 'moment';
 
@@ -15,7 +16,7 @@ export class AppointmentsPage {
   lastDateIndex = 0;
   current_slide_index;
   slots; //JSON.parse('[{"slots":"08:30","doctors_id":4,"slot_day":6},{"slots":"08:45","doctors_id":4,"slot_day":6},{"slots":"09:00","doctors_id":4,"slot_day":6},{"slots":"09:15","doctors_id":4,"slot_day":6},{"slots":"09:30","doctors_id":4,"slot_day":6},{"slots":"09:45","doctors_id":4,"slot_day":6},{"slots":"10:00","doctors_id":4,"slot_day":6},{"slots":"10:15","doctors_id":4,"slot_day":6},{"slots":"10:30","doctors_id":4,"slot_day":6},{"slots":"10:45","doctors_id":4,"slot_day":6},{"slots":"11:00","doctors_id":4,"slot_day":6},{"slots":"11:15","doctors_id":4,"slot_day":6},{"slots":"11:30","doctors_id":4,"slot_day":6},{"slots":"11:45","doctors_id":4,"slot_day":6},{"slots":"12:00","doctors_id":4,"slot_day":6},{"slots":"12:15","doctors_id":4,"slot_day":6},{"slots":"12:30","doctors_id":4,"slot_day":6},{"slots":"12:45","doctors_id":4,"slot_day":6},{"slots":"13:00","doctors_id":4,"slot_day":6},{"slots":"13:15","doctors_id":4,"slot_day":6},{"slots":"13:30","doctors_id":4,"slot_day":6},{"slots":"13:45","doctors_id":4,"slot_day":6},{"slots":"14:00","doctors_id":4,"slot_day":6},{"slots":"14:15","doctors_id":4,"slot_day":6},{"slots":"14:30","doctors_id":4,"slot_day":6},{"slots":"14:45","doctors_id":4,"slot_day":6},{"slots":"15:00","doctors_id":4,"slot_day":6},{"slots":"15:15","doctors_id":4,"slot_day":6},{"slots":"15:30","doctors_id":4,"slot_day":6},{"slots":"15:45","doctors_id":4,"slot_day":6},{"slots":"16:00","doctors_id":4,"slot_day":6},{"slots":"16:15","doctors_id":4,"slot_day":6},{"slots":"16:30","doctors_id":4,"slot_day":6},{"slots":"16:45","doctors_id":4,"slot_day":6},{"slots":"17:00","doctors_id":4,"slot_day":6},{"slots":"17:15","doctors_id":4,"slot_day":6},{"slots":"17:30","doctors_id":4,"slot_day":6},{"slots":"17:45","doctors_id":4,"slot_day":6},{"slots":"18:00","doctors_id":4,"slot_day":6},{"slots":"18:15","doctors_id":4,"slot_day":6},{"slots":"18:30","doctors_id":4,"slot_day":6},{"slots":"18:45","doctors_id":4,"slot_day":6},{"slots":"19:00","doctors_id":4,"slot_day":6},{"slots":"19:15","doctors_id":4,"slot_day":6},{"slots":"19:30","doctors_id":4,"slot_day":6},{"slots":"19:45","doctors_id":4,"slot_day":6},{"slots":"20:00","doctors_id":4,"slot_day":6},{"slots":"20:15","doctors_id":4,"slot_day":6},{"slots":"20:30","doctors_id":4,"slot_day":6},{"slots":"20:45","doctors_id":4,"slot_day":6}]');
-  constructor(public navCtrl: NavController, public http: HttpService) {
+  constructor(public navCtrl: NavController, public http: HttpService, public app: App) {
     this.slide_list = this.prepSlides();
     // console.log(this.slides[0]);
     this.getSlots(this.slide_list[0].slide_selected_date);
@@ -78,5 +79,10 @@ export class AppointmentsPage {
   slideChanged() {
     this.current_slide_index = this.slides.getActiveIndex();
     this.getSlots(this.slide_list[this.current_slide_index].slide_selected_date);
+  }
+
+  logout() {
+    localStorage.clear();
+    this.app.getRootNav().setRoot(LoginPage);
   }
 }

@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Appointment</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content style="overflow-y: hidden;">
+  <ion-list style="margin-bottom: 0px;">
+      <ion-slides no-padding (ionSlideNextEnd)="ionSlideNextEnd()" (ionSlidePrevEnd)="ionSlidePrevEnd()" (ionSlideDidChange)="slideChanged()">
+        <ion-slide no-padding *ngFor="let slide of slide_list">
+          <ion-row no-padding class="date-row">
+            <ion-col text-center 
+              [ngClass]="{'active': date.active, 'date-col': !date.active}" 
+              *ngFor="let date of slide.dates; let i = index;"
+              (click)="dateClick(slide,i)">
+              <sub style="font-size: 12px;">{{date.day}}</sub>
+              <h4 style="margin:0px;">{{date.date}}</h4>
+              <sup style="font-size: 10px;">{{date.month}}</sup>
+            </ion-col>
+          </ion-row>
+        </ion-slide>
+      </ion-slides>
+  </ion-list>
+  <ion-scroll scrollY="true" style="width: 100%; height: 85%;">
+    <ion-list>
+      <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+
+              </ion-col>
+              <ion-col>
+                  
+              </ion-col>
+            </ion-row>
+              <ion-row>
+                <ion-col>
+                    10:30
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                    10:45
+                </ion-col>
+              </ion-row>
+          </ion-grid>
+      </ion-item>
+    </ion-list>
+  </ion-scroll>
+</ion-content>
