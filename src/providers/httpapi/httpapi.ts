@@ -59,6 +59,7 @@ export class HttpService {
             },
             (err) => {
               load.dismiss();
+              this.errorMsg = err.error;
               this.alert.showToast(this.errorMsg);
               (this.network.type == "none") ? reject(err) : reject(err); 
             })

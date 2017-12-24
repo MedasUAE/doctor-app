@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Platform, Events, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -14,7 +14,13 @@ import { AlertService } from '../providers/alert-servce';
 export class MyApp {
   rootPage:any;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public http: HttpService, public alert: AlertService) {
+  constructor(platform: Platform, 
+    statusBar: StatusBar, 
+    splashScreen: SplashScreen, 
+    public http: HttpService, 
+    ev: Events,
+    toastCtrl: ToastController,
+    public alert: AlertService) {
     platform.ready().then(() => {
 
       // http.getBaseURL("http://localhost:3000/getbaseurl?client=darafia")
@@ -43,6 +49,15 @@ export class MyApp {
         else{
           this.rootPage = LoginPage;
         }
+
+        //Logout Unauthorized users
+        ev.subscribe("unautharized",message=>{
+          var toast = toastCtrl.create({
+              message: 'You are not valid user.',
+              duration: 5000
+          });
+          toast.present();
+      })
       
       statusBar.styleDefault();
       splashScreen.hide();

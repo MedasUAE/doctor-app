@@ -2,7 +2,7 @@
   <ion-toolbar color="primary">
     <ion-title>Appointment</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="logout()">
+      <button ion-button icon-only (click)="logout()"> <!-- (click)="logout()" -->
         <ion-icon name="power"></ion-icon>
       </button>
     </ion-buttons>
@@ -27,56 +27,75 @@
       </ion-slides>
   </ion-list>
   <ion-scroll scrollY="true" style="width: 100%; height: 85%;">
-    <ion-list>
-      
-      <ion-item 
-        *ngFor="let slot of slots" 
-        [ngClass]="{
-          'CONFIRMED': slot.status == 'CONFIRMED',
-          'NOTCONFIRMED': slot.status == 'NOTCONFIRMED',
-          'ARRIVED': slot.status == 'ARRIVED',          
-          'CLOSED': slot.status == 'CLOSED',          
-          'REGISTERED': slot.status == 'REGISTERED',
-          'BLOCKED': slot.status == 'BLOCKED'    
-        }"
-        no-margin no-padding>
-        <ion-row no-padding>
-          <ion-col col-3
-             padding>
-             <ion-note style="color:#666">{{slot.time}}</ion-note>
+    <div [hidden]="!dashboardFlag">
+      <ion-list>
+        <ion-item 
+          *ngFor="let slot of slots" 
+          [ngClass]="{
+            'CONFIRMED': slot.status == 'CONFIRMED',
+            'NOTCONFIRMED': slot.status == 'NOTCONFIRMED',
+            'ARRIVED': slot.status == 'ARRIVED',          
+            'CLOSED': slot.status == 'CLOSED',          
+            'REGISTERED': slot.status == 'REGISTERED',
+            'BLOCKED': slot.status == 'BLOCKED'    
+          }"
+          no-margin no-padding>
+          <ion-row no-padding>
+            <ion-col col-3
+                padding>
+                <ion-note style="color:#666">{{slot.time}}</ion-note>
+              </ion-col>
+              <ion-col col-9 
+              padding 
+              style="color:#666">
+              <div *ngIf="slot.appointment">{{slot.appointment.appoint_name}}</div>
             </ion-col>
-            <ion-col col-9 
-            padding 
-            style="color:#666">
-            <div *ngIf="slot.appointment">{{slot.appointment.appoint_name}}</div>
-          </ion-col>
+          </ion-row>
+          <ion-badge 
+          item-end 
+          style="color:#666;font-weight:normal;"
+          [ngClass]="{
+            'new-patient': slot.new_patient && slot.status != 'BLOCKED', 
+            'revisit': !slot.new_patient,
+            'BLOCKED': slot.status == 'BLOCKED',
+            'none': !slot.appointment
+          }">
+          <span *ngIf="!slot.new_patient && slot.appointment">revisit</span>
+          <span *ngIf="slot.new_patient && slot.status != 'BLOCKED'">new</span>
+        </ion-badge>
+        <!-- <ion-note item-end style="transform: rotate(270deg);">BOOKED</ion-note> -->
+          <!-- <p>
+            {{slot.time}}
+            <span 
+              [ngClass]="{
+                'new-patient': slot.new_patient && slot.status != 'BLOCKED', 
+                'revisit': !slot.new_patient
+              }" 
+              *ngIf="slot.appointment" 
+              padding margin-horizontal>
+              {{slot.appointment.appoint_name}}
+            </span>
+          </p> -->
+        </ion-item>
+      </ion-list>
+    </div>
+    <div [hidden]="dashboardFlag">
+      <ion-card color="primary" *ngFor="let db of dashboard">
+        <ion-row>
+          <ion-col text-center>
+            <h1 style="font-size:6em;">{{db.value}}</h1>
+            <p class="p">{{db.label}}</p>
+          </ion-col> 
         </ion-row>
-        <ion-badge 
-        item-end 
-        style="color:#666;font-weight:normal;"
-        [ngClass]="{
-          'new-patient': slot.new_patient && slot.status != 'BLOCKED', 
-          'revisit': !slot.new_patient,
-          'BLOCKED': slot.status == 'BLOCKED',
-          'none': !slot.appointment
-        }">
-        <span *ngIf="!slot.new_patient && slot.appointment">revisit</span>
-        <span *ngIf="slot.new_patient && slot.status != 'BLOCKED'">new</span>
-      </ion-badge>
-      <!-- <ion-note item-end style="transform: rotate(270deg);">BOOKED</ion-note> -->
-        <!-- <p>
-          {{slot.time}}
-          <span 
-            [ngClass]="{
-              'new-patient': slot.new_patient && slot.status != 'BLOCKED', 
-              'revisit': !slot.new_patient
-            }" 
-            *ngIf="slot.appointment" 
-            padding margin-horizontal>
-            {{slot.appointment.appoint_name}}
-          </span>
-        </p> -->
-      </ion-item>
-    </ion-list>
-  </ion-scroll>
+      </ion-card>
+    </div>
+  </ion-scroll> 
+  <ion-fab bottom right>
+    <button ion-fab mini (click)="fabClick()" [hidden]="!dashboardFlag">
+      <ion-icon name="arrow-round-back"></ion-icon> 
+    </button>
+    <button ion-fab mini (click)="fabClick()" [hidden]="dashboardFlag">
+      <ion-icon name="list"></ion-icon> 
+    </button>
+  </ion-fab>
 </ion-content>

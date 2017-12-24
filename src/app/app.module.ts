@@ -10,6 +10,7 @@ import { LoginPage } from '../pages/login/login';
 import { AppointmentsPage } from '../pages/appointments/appoitnments';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { PopOverPage } from '../pages/pop-over/pop-over';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -22,7 +23,8 @@ import { AlertService } from '../providers/alert-servce';
     LoginPage,
     AppointmentsPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    PopOverPage
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,8 @@ import { AlertService } from '../providers/alert-servce';
     LoginPage,
     AppointmentsPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    PopOverPage
   ],
   providers: [
     StatusBar,

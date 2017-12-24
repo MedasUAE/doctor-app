@@ -22,12 +22,15 @@ export class LoginPage {
       username: this.username,
       password: this.password
     }
-    this.http.post("login", postData)
+    this.http.post("v1/login", postData)
       .then((res:any)=>{
         localStorage.setItem('auth', JSON.stringify(res))
         this.http.headers.append('Authorization', 'bearer ' + JSON.parse(localStorage.getItem('auth')).token);
         this.navCtrl.setRoot(AppointmentsPage);
-      });
+      })
+      .catch(err=>{
+        console.log(err.error);
+      })
   }
 
 }
