@@ -25,6 +25,7 @@ export class LoginPage {
     this.http.post("v1/login", postData)
       .then((res:any)=>{
         localStorage.setItem('auth', JSON.stringify(res))
+        // console.log(this.http.headers.Authorization);
         this.http.headers.append('Authorization', 'bearer ' + JSON.parse(localStorage.getItem('auth')).token);
         this.navCtrl.setRoot(AppointmentsPage);
       })

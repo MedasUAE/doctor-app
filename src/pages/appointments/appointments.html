@@ -6,8 +6,7 @@
         <ion-icon name="power"></ion-icon>
       </button>
     </ion-buttons>
-  </ion-toolbar>
-  
+  </ion-toolbar> 
 </ion-header>
 <ion-content style="overflow-y: hidden;">
   <ion-list style="margin-bottom: 0px;">
@@ -91,10 +90,10 @@
     </div>
   </ion-scroll> 
   <ion-fab bottom right>
-    <button ion-fab mini (click)="fabClick()" [hidden]="!dashboardFlag">
+    <button ion-fab mini (click)="fabClick()" [hidden]="!dashboardFlag" color="danger">
       <ion-icon name="arrow-round-back"></ion-icon> 
     </button>
-    <button ion-fab mini (click)="fabClick()" [hidden]="dashboardFlag">
+    <button ion-fab mini (click)="fabClick()" [hidden]="dashboardFlag" color="danger">
       <ion-icon name="list"></ion-icon> 
     </button>
   </ion-fab>

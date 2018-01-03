@@ -88,7 +88,8 @@ export class AppointmentsPage {
   }
 
   logout() {
-    localStorage.clear();
+    localStorage.removeItem('auth');
+    this.http.headers.delete('Authorization');
     this.app.getRootNav().setRoot(LoginPage);
   }
 
