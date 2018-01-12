@@ -24,7 +24,7 @@ export class MyApp {
     platform.ready().then(() => {
 
       // http.getBaseURL("http://localhost:3000/getbaseurl?client=darafia")
-      http.getBaseURL("https://mobie-setup-ws.appspot.com/getbaseurl?client=damas")
+      http.getBaseURL("https://mobie-setup-ws.appspot.com/v1/getbaseurl?client=damas")
         .then((url:any)=>{
           localStorage.setItem('baseURL', url);
           if(localStorage.getItem('auth')){

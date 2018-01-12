@@ -40,28 +40,44 @@
           }"
           no-margin no-padding>
           <ion-row no-padding>
-            <ion-col col-3
-                padding>
-                <ion-note style="color:#666">{{slot.time}}</ion-note>
+            <ion-col col-3 padding text-center style="top:0em;">
+                {{slot.time}}
+                <!-- <ion-note style="color:#666">{{slot.time}}</ion-note> -->
               </ion-col>
               <ion-col col-9 
-              padding 
+              no-padding
               style="color:#666">
-              <div *ngIf="slot.appointment">{{slot.appointment.appoint_name}}</div>
+              <ion-card  
+                  nopaddings
+                  [ngClass]="{
+                      'CONFIRMED': apt.status == 'CONFIRMED',
+                      'NOTCONFIRMED': apt.status == 'NOTCONFIRMED',
+                      'ARRIVED': apt.status == 'ARRIVED',          
+                      'CLOSED': apt.status == 'CLOSED',          
+                      'REGISTERED': apt.status == 'REGISTERED',
+                      'BLOCKED': apt.status == 'BLOCKED'    
+                    }"
+                    *ngFor="let apt of slot.appointments">
+                    <ion-card-content padding-horizontal text-wrap>
+                      <h2>{{apt.appoint_name}}</h2> 
+                      <ion-note item-end style="color:#666">{{apt.office_Name}}</ion-note>
+                    </ion-card-content>
+                    <!-- <ion-note 
+                      item-end 
+                      style="color:#666;font-weight:normal;"
+                      [ngClass]="{
+                        'new-patient': apt.new_patient && apt.status != 'BLOCKED', 
+                        'revisit': !apt.new_patient,
+                        'BLOCKED': apt.status == 'BLOCKED',
+                        'none': !slot.appointments.length
+                      }">
+                      <span *ngIf="!apt.new_patient && slot.appointments.length">revisit</span>
+                      <span *ngIf="apt.new_patient && apt.status != 'BLOCKED'">new</span>
+                    </ion-note> -->
+              </ion-card>
             </ion-col>
           </ion-row>
-          <ion-badge 
-          item-end 
-          style="color:#666;font-weight:normal;"
-          [ngClass]="{
-            'new-patient': slot.new_patient && slot.status != 'BLOCKED', 
-            'revisit': !slot.new_patient,
-            'BLOCKED': slot.status == 'BLOCKED',
-            'none': !slot.appointment
-          }">
-          <span *ngIf="!slot.new_patient && slot.appointment">revisit</span>
-          <span *ngIf="slot.new_patient && slot.status != 'BLOCKED'">new</span>
-        </ion-badge>
+          
         <!-- <ion-note item-end style="transform: rotate(270deg);">BOOKED</ion-note> -->
           <!-- <p>
             {{slot.time}}
